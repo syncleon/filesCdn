@@ -32,16 +32,13 @@ class FileStorageService @Autowired constructor(fileStorageProperties: FileStora
     }
 
     fun storeFile(file: MultipartFile): String {
-        // Normalize file name
         val fileName = StringUtils.cleanPath(file.originalFilename!!)
 
         try {
-            // Check if the file's name contains invalid characters
             if (fileName.contains("..")) {
                 throw FileStorageException("Sorry! Filename contains invalid path sequence $fileName")
             }
 
-            // Copy file to the target location (Replacing existing file with the same name)
             val targetLocation = fileStorageLocation.resolve(fileName)
             Files.copy(file.inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING)
 

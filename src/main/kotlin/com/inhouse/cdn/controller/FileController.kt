@@ -43,10 +43,8 @@ class FileController @Autowired constructor(private val fileStorageService: File
 
     @GetMapping("/downloadFile/{fileName:.+}")
     fun downloadFile(@PathVariable fileName: String, request: HttpServletRequest): ResponseEntity<Resource> {
-        // Load file as Resource
         val resource = fileStorageService.loadFileAsResource(fileName)
 
-        // Try to determine file's content type
         var contentType: String? = null
         try {
             contentType = request.servletContext.getMimeType(resource.file.absolutePath)
@@ -54,7 +52,6 @@ class FileController @Autowired constructor(private val fileStorageService: File
             logger.info("Could not determine file type.")
         }
 
-        // Fallback to the default content type if type could not be determined
         if (contentType == null) {
             contentType = "application/octet-stream"
         }
