@@ -1,0 +1,22 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: "postgres"
+    password: "root"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: "public"
+file:
+  upload-dir: /Users/leonidsidorov/uploads
+server:
+  port: 8082
